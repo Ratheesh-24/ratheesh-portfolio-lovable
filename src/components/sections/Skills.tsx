@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Typography } from 'antd';
 import FadeInWhenVisible from '../animations/FadeInWhenVisible';
 import {
@@ -21,13 +21,28 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious, 
 } from "@/components/ui/carousel";
+import useEmblaCarousel from 'embla-carousel-react';
+import Autoplay from 'embla-carousel-autoplay';
 
 const { Title } = Typography;
 
 const Skills: React.FC = () => {
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    { 
+      loop: true,
+      align: "start",
+      dragFree: true,
+    },
+    [
+      Autoplay({ 
+        delay: 2000, 
+        stopOnInteraction: false,
+        stopOnMouseEnter: true,
+      })
+    ]
+  );
+
   const skillsData = [
     { name: 'HTML5', icon: <Html5Outlined style={{ fontSize: '40px', color: '#E34F26' }} /> },
     { name: 'CSS3', icon: <CoffeeOutlined style={{ fontSize: '40px', color: '#1572B6' }} /> },
@@ -58,16 +73,10 @@ const Skills: React.FC = () => {
           transition={{ duration: 0.8 }}
           className="my-12 px-4"
         >
-          <Carousel
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            className="w-full"
-          >
-            <CarouselContent className="-ml-1">
+          <div className="overflow-hidden" ref={emblaRef}>
+            <div className="flex -ml-1">
               {skillsData.map((skill, index) => (
-                <CarouselItem key={index} className="pl-1 md:basis-1/3 lg:basis-1/4">
+                <div key={index} className="pl-1 min-w-[180px] sm:min-w-[200px] md:min-w-[250px] flex-[0_0_33%] md:flex-[0_0_25%]">
                   <div className="p-1">
                     <motion.div
                       whileHover={{ scale: 1.05 }}
@@ -78,14 +87,10 @@ const Skills: React.FC = () => {
                       <div className="font-medium text-white">{skill.name}</div>
                     </motion.div>
                   </div>
-                </CarouselItem>
+                </div>
               ))}
-            </CarouselContent>
-            <div className="flex justify-center gap-4 mt-8">
-              <CarouselPrevious className="relative left-0 right-auto bg-white/20 hover:bg-white/40 text-white border-0" />
-              <CarouselNext className="relative left-0 right-auto bg-white/20 hover:bg-white/40 text-white border-0" />
             </div>
-          </Carousel>
+          </div>
         </motion.div>
       </div>
     </section>
