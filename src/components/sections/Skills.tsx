@@ -17,11 +17,6 @@ import {
   ThunderboltFilled,
 } from '@ant-design/icons';
 import { motion } from 'framer-motion';
-import { 
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "@/components/ui/carousel";
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 
@@ -120,17 +115,33 @@ const Skills: React.FC = () => {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            {/* Glow effect */}
+            {/* Multiple animated glow effects */}
             <motion.div 
-              className="absolute top-1/2 left-1/2 w-40 h-40 rounded-full bg-blue-500/30 blur-3xl -z-10"
+              className="absolute top-1/2 left-1/4 w-40 h-40 rounded-full bg-blue-500/30 blur-3xl -z-10"
               animate={{
-                scale: [1, 1.5, 1],
-                opacity: [0.3, 0.6, 0.3]
+                scale: [1, 1.8, 1],
+                opacity: [0.3, 0.6, 0.3],
+                x: [0, 100, 0],
               }}
               transition={{
                 duration: 8,
                 repeat: Infinity,
                 repeatType: "reverse"
+              }}
+            />
+            
+            <motion.div 
+              className="absolute top-1/2 right-1/4 w-40 h-40 rounded-full bg-purple-500/30 blur-3xl -z-10"
+              animate={{
+                scale: [1.2, 1, 1.2],
+                opacity: [0.2, 0.5, 0.2],
+                x: [0, -100, 0],
+              }}
+              transition={{
+                duration: 7,
+                repeat: Infinity,
+                repeatType: "reverse",
+                delay: 1
               }}
             />
             
@@ -143,13 +154,13 @@ const Skills: React.FC = () => {
                       whileHover={{ 
                         scale: 1.08,
                         boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.2)",
-                        rotate: 2,
-                        y: -5
+                        rotate: 5,
+                        y: -8
                       }}
                       whileTap={{ scale: 0.95 }}
-                      className="text-center p-6 rounded-lg bg-gradient-to-br from-gray-900/80 to-gray-800/90 shadow-xl backdrop-blur-sm border border-gray-700 relative overflow-hidden group"
+                      className="text-center p-6 rounded-lg bg-gradient-to-br from-gray-900/80 to-gray-800/90 shadow-xl backdrop-blur-sm border border-gray-700 relative overflow-hidden group h-[150px] flex flex-col items-center justify-center"
                     >
-                      {/* Background animated gradient */}
+                      {/* Animated background gradient */}
                       <motion.div 
                         className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100"
                         animate={{
@@ -162,16 +173,47 @@ const Skills: React.FC = () => {
                         }}
                       />
                       
+                      {/* Animated border glow on hover */}
+                      <motion.div 
+                        className="absolute inset-0 opacity-0 group-hover:opacity-100 duration-700"
+                        style={{ 
+                          background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)",
+                          transform: "translateX(-100%)",
+                        }}
+                        animate={{
+                          x: ["-100%", "100%"],
+                        }}
+                        transition={{
+                          duration: 1.5,
+                          repeat: Infinity,
+                          ease: "linear",
+                        }}
+                      />
+                      
                       <motion.div 
                         className="flex justify-center mb-4 relative"
                         whileHover={{ 
                           rotate: [0, 10, -10, 0],
+                          scale: [1, 1.2, 1],
                           transition: { duration: 0.5 }
                         }}
                       >
                         {skill.icon}
                       </motion.div>
                       <div className="font-medium text-white">{skill.name}</div>
+                      
+                      {/* Subtle pulse effect */}
+                      <motion.div
+                        className="absolute inset-0 rounded-lg"
+                        animate={{ 
+                          boxShadow: ["0 0 0 rgba(255,255,255,0)", "0 0 8px rgba(255,255,255,0.3)", "0 0 0 rgba(255,255,255,0)"]
+                        }}
+                        transition={{ 
+                          duration: 2,
+                          repeat: Infinity,
+                          delay: index * 0.2
+                        }}
+                      />
                     </motion.div>
                   </div>
                 </div>
@@ -179,7 +221,7 @@ const Skills: React.FC = () => {
             </div>
           </motion.div>
           
-          {/* Scroll indicator */}
+          {/* Enhanced scroll indicator */}
           <motion.div 
             className="flex justify-center mt-8"
             initial={{ opacity: 0 }}
@@ -189,7 +231,7 @@ const Skills: React.FC = () => {
             <motion.div
               className="flex gap-2"
               animate={{
-                x: [0, 10, 0],
+                x: [0, 20, 0],
               }}
               transition={{
                 duration: 1.5,
@@ -197,9 +239,45 @@ const Skills: React.FC = () => {
                 repeatType: "reverse"
               }}
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-white/60"></span>
-              <span className="h-1.5 w-1.5 rounded-full bg-white/80"></span>
-              <span className="h-1.5 w-1.5 rounded-full bg-white"></span>
+              <motion.span 
+                className="h-2 w-2 rounded-full bg-white/60"
+                animate={{
+                  scale: [0.8, 1.2, 0.8],
+                  opacity: [0.4, 1, 0.4],
+                }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  delay: 0
+                }}
+              />
+              <motion.span 
+                className="h-2 w-2 rounded-full bg-white/80"
+                animate={{
+                  scale: [0.8, 1.2, 0.8],
+                  opacity: [0.4, 1, 0.4],
+                }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  delay: 0.2
+                }}
+              />
+              <motion.span 
+                className="h-2 w-2 rounded-full bg-white"
+                animate={{
+                  scale: [0.8, 1.2, 0.8],
+                  opacity: [0.4, 1, 0.4],
+                }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  delay: 0.4
+                }}
+              />
             </motion.div>
           </motion.div>
         </motion.div>

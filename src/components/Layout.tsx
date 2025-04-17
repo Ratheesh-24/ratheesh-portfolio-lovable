@@ -118,16 +118,22 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               <Menu
                 mode="horizontal"
                 selectedKeys={[activeSection]}
-                style={{ background: 'transparent', borderBottom: 'none' }}
+                style={{ 
+                  background: 'transparent', 
+                  borderBottom: 'none',
+                  width: 'auto',
+                  overflow: 'visible'
+                }}
                 items={navItems.map((item) => ({
                   key: item.key,
                   icon: item.icon,
                   label: (
-                    <a href={item.href} onClick={() => handleMenuClick(item.key)}>
+                    <a href={item.href} onClick={() => handleMenuClick(item.key)} className="whitespace-nowrap flex items-center">
                       {item.label}
                     </a>
                   ),
                 }))}
+                className="text-nowrap"
               />
               <Button
                 type="text"
