@@ -1,12 +1,13 @@
+
 import React from 'react';
 import { Typography, Row, Col } from 'antd';
 import FadeInWhenVisible from '../animations/FadeInWhenVisible';
 import {
-  Html5Filled,
-  Css3Filled,
-  JavascriptFilled,
-  ReactFilled,
-  NodejsFilled,
+  Html5Outlined,
+  CoffeeOutlined, // Replacement for CSS
+  CodeOutlined, // Replacement for JavaScript
+  ApiOutlined, // Replacement for React
+  CloudServerOutlined, // Replacement for Node.js
   GitlabFilled,
 } from '@ant-design/icons';
 
@@ -14,11 +15,11 @@ const { Title } = Typography;
 
 const Skills: React.FC = () => {
   const skillsData = [
-    { name: 'HTML5', icon: <Html5Filled style={{ fontSize: '32px', color: '#E34F26' }} /> },
-    { name: 'CSS3', icon: <Css3Filled style={{ fontSize: '32px', color: '#1572B6' }} /> },
-    { name: 'JavaScript', icon: <JavascriptFilled style={{ fontSize: '32px', color: '#F7DF1E' }} /> },
-    { name: 'React', icon: <ReactFilled style={{ fontSize: '32px', color: '#61DAFB' }} /> },
-    { name: 'Node.js', icon: <NodejsFilled style={{ fontSize: '32px', color: '#339933' }} /> },
+    { name: 'HTML5', icon: <Html5Outlined style={{ fontSize: '32px', color: '#E34F26' }} /> },
+    { name: 'CSS3', icon: <CoffeeOutlined style={{ fontSize: '32px', color: '#1572B6' }} /> },
+    { name: 'JavaScript', icon: <CodeOutlined style={{ fontSize: '32px', color: '#F7DF1E' }} /> },
+    { name: 'React', icon: <ApiOutlined style={{ fontSize: '32px', color: '#61DAFB' }} /> },
+    { name: 'Node.js', icon: <CloudServerOutlined style={{ fontSize: '32px', color: '#339933' }} /> },
     { name: 'GitLab', icon: <GitlabFilled style={{ fontSize: '32px', color: '#FCA121' }} /> },
   ];
 
