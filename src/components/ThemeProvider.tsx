@@ -28,8 +28,12 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   useEffect(() => {
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
+      document.documentElement.style.setProperty('--background-start', 'rgba(13, 18, 30, 1)');
+      document.documentElement.style.setProperty('--background-end', 'rgba(28, 38, 58, 1)');
     } else {
       document.documentElement.classList.remove('dark');
+      document.documentElement.style.setProperty('--background-start', 'rgba(247, 250, 252, 1)');
+      document.documentElement.style.setProperty('--background-end', 'rgba(237, 242, 247, 1)');
     }
     localStorage.setItem('theme', theme);
   }, [theme]);

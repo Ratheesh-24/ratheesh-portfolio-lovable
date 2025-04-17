@@ -5,15 +5,16 @@ import { MenuOutlined, BulbOutlined, BulbFilled } from '@ant-design/icons';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from './ThemeProvider';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { Home, User, Code, Briefcase, Mail } from 'lucide-react';
 
 const { Header, Content, Footer } = AntLayout;
 
 const navItems = [
-  { key: 'home', label: 'Home', href: '#home' },
-  { key: 'about', label: 'About', href: '#about' },
-  { key: 'skills', label: 'Skills', href: '#skills' },
-  { key: 'projects', label: 'Projects', href: '#projects' },
-  { key: 'contact', label: 'Contact', href: '#contact' },
+  { key: 'home', label: 'Home', href: '#home', icon: <Home size={16} /> },
+  { key: 'about', label: 'About', href: '#about', icon: <User size={16} /> },
+  { key: 'skills', label: 'Skills', href: '#skills', icon: <Code size={16} /> },
+  { key: 'projects', label: 'Projects', href: '#projects', icon: <Briefcase size={16} /> },
+  { key: 'contact', label: 'Contact', href: '#contact', icon: <Mail size={16} /> },
 ];
 
 interface LayoutProps {
@@ -57,12 +58,17 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     position: 'fixed',
     zIndex: 10,
     width: '100%',
-    background: theme === 'dark' ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, 0.8)',
-    backdropFilter: 'blur(5px)',
+    background: theme === 'dark' 
+      ? 'rgba(17, 25, 40, 0.85)' 
+      : 'rgba(255, 255, 255, 0.85)',
+    backdropFilter: 'blur(10px)',
     padding: isMobile ? '0 16px' : '0 50px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
+    borderBottom: theme === 'dark' 
+      ? '1px solid rgba(255, 255, 255, 0.05)' 
+      : '1px solid rgba(0, 0, 0, 0.05)',
   };
   
   return (
@@ -101,6 +107,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   selectedKeys={[activeSection]}
                   items={navItems.map((item) => ({
                     key: item.key,
+                    icon: item.icon,
                     label: <a href={item.href} onClick={() => handleMenuClick(item.key)}>{item.label}</a>,
                   }))}
                 />
@@ -114,6 +121,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 style={{ background: 'transparent', borderBottom: 'none' }}
                 items={navItems.map((item) => ({
                   key: item.key,
+                  icon: item.icon,
                   label: (
                     <a href={item.href} onClick={() => handleMenuClick(item.key)}>
                       {item.label}

@@ -58,12 +58,51 @@ const Skills: React.FC = () => {
     { name: 'GraphQL', icon: <AppstoreFilled style={{ fontSize: '40px', color: '#E10098' }} /> },
   ];
 
+  // Animation variants for staggered appearance of cards
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+  
+  const itemVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 20,
+      scale: 0.8,
+      rotateY: -30
+    },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      scale: 1,
+      rotateY: 0,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 10
+      }
+    }
+  };
+
   return (
-    <section id="skills" className="section-padding" style={{ background: 'linear-gradient(135deg, #1a1f2c 0%, #2c3e50 100%)' }}>
+    <section id="skills" className="section-padding" style={{ 
+      background: 'linear-gradient(135deg, rgba(23, 28, 46, 0.95) 0%, rgba(44, 62, 80, 0.9) 100%)',
+      boxShadow: 'inset 0 0 100px rgba(0,0,0,0.3)'
+    }}>
       <div className="section-container">
         <FadeInWhenVisible>
           <Title level={2} className="text-center mb-12 text-3xl font-bold text-white">
-            My Skills
+            <motion.span
+              initial={{ opacity: 0, filter: "blur(10px)" }}
+              animate={{ opacity: 1, filter: "blur(0)" }}
+              transition={{ duration: 1 }}
+            >
+              My Skills
+            </motion.span>
           </Title>
         </FadeInWhenVisible>
         
@@ -73,24 +112,96 @@ const Skills: React.FC = () => {
           transition={{ duration: 0.8 }}
           className="my-12 px-4"
         >
-          <div className="overflow-hidden" ref={emblaRef}>
+          <motion.div 
+            className="overflow-hidden relative" 
+            ref={emblaRef}
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            {/* Glow effect */}
+            <motion.div 
+              className="absolute top-1/2 left-1/2 w-40 h-40 rounded-full bg-blue-500/30 blur-3xl -z-10"
+              animate={{
+                scale: [1, 1.5, 1],
+                opacity: [0.3, 0.6, 0.3]
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                repeatType: "reverse"
+              }}
+            />
+            
             <div className="flex -ml-1">
               {skillsData.map((skill, index) => (
                 <div key={index} className="pl-1 min-w-[180px] sm:min-w-[200px] md:min-w-[250px] flex-[0_0_33%] md:flex-[0_0_25%]">
                   <div className="p-1">
                     <motion.div
-                      whileHover={{ scale: 1.05 }}
+                      variants={itemVariants}
+                      whileHover={{ 
+                        scale: 1.08,
+                        boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.2)",
+                        rotate: 2,
+                        y: -5
+                      }}
                       whileTap={{ scale: 0.95 }}
-                      className="text-center p-6 rounded-lg bg-gradient-to-br from-gray-900/80 to-gray-800/90 shadow-xl backdrop-blur-sm border border-gray-700"
+                      className="text-center p-6 rounded-lg bg-gradient-to-br from-gray-900/80 to-gray-800/90 shadow-xl backdrop-blur-sm border border-gray-700 relative overflow-hidden group"
                     >
-                      <div className="flex justify-center mb-4">{skill.icon}</div>
+                      {/* Background animated gradient */}
+                      <motion.div 
+                        className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100"
+                        animate={{
+                          backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                        }}
+                        transition={{
+                          duration: 5,
+                          repeat: Infinity,
+                          repeatType: "reverse"
+                        }}
+                      />
+                      
+                      <motion.div 
+                        className="flex justify-center mb-4 relative"
+                        whileHover={{ 
+                          rotate: [0, 10, -10, 0],
+                          transition: { duration: 0.5 }
+                        }}
+                      >
+                        {skill.icon}
+                      </motion.div>
                       <div className="font-medium text-white">{skill.name}</div>
                     </motion.div>
                   </div>
                 </div>
               ))}
             </div>
-          </div>
+          </motion.div>
+          
+          {/* Scroll indicator */}
+          <motion.div 
+            className="flex justify-center mt-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1 }}
+          >
+            <motion.div
+              className="flex gap-2"
+              animate={{
+                x: [0, 10, 0],
+              }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                repeatType: "reverse"
+              }}
+            >
+              <span className="h-1.5 w-1.5 rounded-full bg-white/60"></span>
+              <span className="h-1.5 w-1.5 rounded-full bg-white/80"></span>
+              <span className="h-1.5 w-1.5 rounded-full bg-white"></span>
+            </motion.div>
+          </motion.div>
         </motion.div>
       </div>
     </section>
